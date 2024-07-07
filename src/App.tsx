@@ -4,6 +4,7 @@ import { Person } from './types';
 import { PersonList } from './components/person-list/person-list';
 import { SearchPanel } from './components/search-panel/search-panel';
 import { ApiService } from './service/api-service';
+import { ErrorButton } from './components/error-button/error-button';
 
 interface State {
   search: string;
@@ -64,9 +65,7 @@ class App extends Component<Props, State> {
         </header>
         <PersonList personList={personList} errorStatus={errorStatus} errorMessage={errorMessage} />
         <footer>
-          <button type="button" className="btn-large">
-            big error button
-          </button>
+          <ErrorButton />
         </footer>
       </>
     );

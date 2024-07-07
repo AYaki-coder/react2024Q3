@@ -1,0 +1,28 @@
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  background: url(/src/assets/error-background.jpg) 10% 18% no-repeat;
+  background-size: cover;
+}
+
+h1 {
+  color: #c82f2f;
+  position: absolute;
+  right: 50%;
+  top: 50%;
+}
+
+@media (max-width: 980px) {
+  h1 {
+    position: static;
+  }
+}
+
+.btn-error {
+  background-color: #c82f2f;
+  color: aliceblue;
+}
