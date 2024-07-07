@@ -4,9 +4,9 @@ import './person-list.css';
 import { Person } from '../person/person';
 
 interface Props {
-  personList: Array<Readonly<PersonResponse>>;
-  errorStatus: boolean;
-  errorMessage: string;
+  readonly personList: Array<Readonly<PersonResponse>>;
+  readonly errorStatus: boolean;
+  readonly errorMessage: string;
 }
 
 export class PersonList extends PureComponent<Props> {

@@ -2,9 +2,9 @@ import { PureComponent, ReactNode } from 'react';
 import './search-panel.css';
 
 interface Props {
-  value: string;
-  handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
-  handleButtonClick: () => void;
+  readonly value: string;
+  readonly handleChange: (e: React.FormEvent<HTMLInputElement>) => void;
+  readonly handleButtonClick: () => void;
 }
 
 export class SearchPanel extends PureComponent<Props> {

@@ -15,7 +15,6 @@ body {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-
 }
 
 li {
@@ -53,7 +52,7 @@ input:focus {
   border-bottom-color: #ffc107;
 }
 
-input[type="search"]::-webkit-search-cancel-button {
+input[type='search']::-webkit-search-cancel-button {
   appearance: none;
 }
 
@@ -83,4 +82,3 @@ button:active {
 .btn-large {
   min-width: 50%;
 }
-

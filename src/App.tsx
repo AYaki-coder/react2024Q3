@@ -5,12 +5,14 @@ import { PersonList } from './components/person-list/person-list';
 import { SearchPanel } from './components/search-panel/search-panel';
 import { ApiService } from './service/api-service';
 import { ErrorButton } from './components/error-button/error-button';
+import { Loader } from './components/loader/loader';
 
 interface State {
   search: string;
   personList: Array<Person>;
   errorStatus: boolean;
   errorMessage: string;
+  isLoading: boolean;
 }
 
 interface Props {
@@ -26,6 +28,7 @@ class App extends Component<Props, State> {
       personList: [],
       errorStatus: false,
       errorMessage: '',
+      isLoading: false,
     };
   }
 
@@ -34,12 +37,14 @@ class App extends Component<Props, State> {
   }
 
   getPersonList(): void {
+    this.setState({ isLoading: true });
     this.props.apiService
       .getAllPersons(this.state.search)
       .then((res) => this.setState({ personList: res.results, errorStatus: false, errorMessage: '' }))
       .catch((e) => {
         this.setState({ errorStatus: true, errorMessage: e.message });
-      });
+      })
+      .finally(() => this.setState({ isLoading: false }));
   }
 
   handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
@@ -53,17 +58,17 @@ class App extends Component<Props, State> {
   };
 
   render(): ReactNode {
-    const { personList, errorStatus, errorMessage } = this.state;
+    const { personList, errorStatus, errorMessage, isLoading, search } = this.state;
     return (
       <>
         <header>
-          <SearchPanel
-            handleButtonClick={this.handleButtonClick}
-            handleChange={this.handleChange}
-            value={this.state.search}
-          />
+          <SearchPanel handleButtonClick={this.handleButtonClick} handleChange={this.handleChange} value={search} />
         </header>
-        <PersonList personList={personList} errorStatus={errorStatus} errorMessage={errorMessage} />
+        {isLoading ? (
+          <Loader />
+        ) : (
+          <PersonList personList={personList} errorStatus={errorStatus} errorMessage={errorMessage} />
+        )}
         <footer>
           <ErrorButton />
         </footer>

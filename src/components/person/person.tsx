@@ -3,8 +3,8 @@ import './person.css';
 import { Person as PersonResponse } from '../../types';
 
 interface Props {
-  person: Readonly<PersonResponse>;
-  key: string;
+  readonly person: Readonly<PersonResponse>;
+  readonly key: string;
 }
 
 export class Person extends PureComponent<Props> {

@@ -1,4 +1,4 @@
-.person{
+.person {
   list-style: none;
   font-family: inherit;
   margin-bottom: 0.5em;
@@ -8,7 +8,7 @@
   border: 1px solid #473a0b;
 }
 
-.title{
+.title {
   color: #f7be06;
   font-size: 1em;
   font-weight: 400;
@@ -25,5 +25,5 @@
 }
 
 .description-title {
-  color:#aaaaaa
+  color: #aaaaaa;
 }

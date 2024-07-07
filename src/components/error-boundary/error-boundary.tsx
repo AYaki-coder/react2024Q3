@@ -2,7 +2,7 @@ import { ErrorInfo, PureComponent, ReactNode } from 'react';
 import './error-boundary.css';
 
 interface Props {
-  children: ReactNode;
+  readonly children: ReactNode;
 }
 interface State {
   hasError: boolean;
