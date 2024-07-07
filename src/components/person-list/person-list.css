@@ -1,5 +1,7 @@
 .result-container {
   min-width: 50%;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   padding: 20px;
   flex-grow: 1;
@@ -8,11 +10,17 @@
   &::-webkit-scrollbar {
     width: 7px;
     background-color: #1a1a1a;
-    
   }
 
   &::-webkit-scrollbar-thumb {
     background-color: #ffc10742;
-    
   }
+}
+
+.error,
+.noResults {
+  text-transform: uppercase;
+  font-size: 2rem;
+  text-align: center;
+  color:  #c82f2f;
 }

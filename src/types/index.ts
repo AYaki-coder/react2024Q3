@@ -1,4 +1,4 @@
-export interface PersonResponse {
+export interface Person {
   name: string;
   height: string;
   mass: string;
@@ -15,4 +15,11 @@ export interface PersonResponse {
   created: string;
   edited: string;
   url: string;
+}
+
+export interface ApiResponse {
+  count: number;
+  next: string;
+  previous: string;
+  results: Array<Readonly<Person>>;
 }

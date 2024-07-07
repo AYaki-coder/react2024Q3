@@ -1,9 +1,10 @@
 import { PureComponent, ReactNode } from 'react';
 import './person.css';
-import { PersonResponse } from '../../types';
+import { Person as PersonResponse } from '../../types';
 
 interface Props {
   person: Readonly<PersonResponse>;
+  key: string;
 }
 
 export class Person extends PureComponent<Props> {
@@ -22,7 +23,7 @@ export class Person extends PureComponent<Props> {
     } = this.props;
 
     return (
-      <li className="person" key={name}>
+      <li className="person">
         <div className="title">{name}</div>
         <div className="description">
           <div>
