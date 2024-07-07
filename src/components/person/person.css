@@ -1,0 +1,29 @@
+.person{
+  list-style: none;
+  font-family: inherit;
+  margin-bottom: 0.5em;
+  background-color: #1a1a1ad4;
+  border-radius: 8px;
+  padding: 0.6em 1.2em;
+  border: 1px solid #473a0b;
+}
+
+.title{
+  color: #f7be06;
+  font-size: 1em;
+  font-weight: 400;
+  margin-bottom: 10px;
+}
+
+.description {
+  display: flex;
+  justify-content: space-between;
+  gap: 5px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  color: #efedf8;
+}
+
+.description-title {
+  color:#aaaaaa
+}
