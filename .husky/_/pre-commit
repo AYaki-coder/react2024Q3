@@ -1,3 +1,2 @@
 #!/usr/bin/env sh
 . "${0%/*}/h"
-npm run format:check && npm run lint

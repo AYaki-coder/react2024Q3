@@ -11,7 +11,9 @@
     "preview": "vite preview",
     "prepare": "husky",
     "format:check": "prettier --check ./src",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "tsc": "tsc --noEmit --project ./tsconfig.app.json",
+    "tsc:watch": "tsc --noEmit --watch --project ./tsconfig.app.json"
   },
   "dependencies": {
     "react": "^18.3.1",
