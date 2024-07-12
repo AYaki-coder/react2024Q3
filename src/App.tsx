@@ -1,4 +1,4 @@
-import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import './App.css';
 import { Person } from './types';
 import { PersonList } from './components/person-list/person-list';
@@ -8,9 +8,12 @@ import { ErrorButton } from './components/error-button/error-button';
 import { Loader } from './components/loader/loader';
 import { useLocalStorage } from './hooks/use-local-storage';
 import { Pagination } from './components/pagination/pagination';
+import { useSearchParams } from 'react-router-dom';
 
 function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
-  const [request, setRequest] = useLocalStorage('', 'search');
+  const [params, setParams] = useSearchParams();
+  const [request, setRequest] = useLocalStorage(params.get(Params.Search) ?? '', 'search');
+  const [page, setPage] = useState(params.get(Params.Page) ?? '1');
   const [search, setSearch] = useState(request);
   const [personList, setPersonList] = useState<Person[]>([]);
   const [totalItems, setTotalItems] = useState(0);
@@ -19,10 +22,11 @@ function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    getPersonList();
+    getPersonList(search, page);
   }, []);
 
-  function getPersonList(page?: string): void {
+  function getPersonList(search: string, page: string): void {
+    console.log('getPersonList search:', search, ' page:', page);
     setIsLoading(true);
     apiService
       .getAllPersons(search, page)
@@ -36,21 +40,31 @@ function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
         setErrorStatus(true);
         setErrorMessage(e.message);
       })
-      .finally(() => setIsLoading(false));
+      .finally(() => {
+        setParams({ [Params.Search]: search, [Params.Page]: page });
+        setIsLoading(false);
+      });
   }
 
   function handleChange(e: React.FormEvent<HTMLInputElement>): void {
     setSearch(e.currentTarget.value);
   }
 
-  const handleButtonClick = useCallback(
-    (page?: string): void => {
-      console.log({ page });
-      setRequest(search);
-      getPersonList(page);
-    },
-    [setRequest, getPersonList],
-  );
+  const handleButtonClick = (): void => {
+    const currentPage = '1';
+    setPersonList([]);
+    setRequest(search);
+    getPersonList(search, currentPage);
+    setPage(currentPage);
+  };
+
+  const changePage = (currentPage: number, shouldIncrement: boolean): void => {
+    const newCurrentPage = (shouldIncrement ? ++currentPage : --currentPage).toString();
+
+    setPage(newCurrentPage);
+    console.log('page', page);
+    getPersonList(search, newCurrentPage);
+  };
 
   return (
     <>
@@ -62,14 +76,21 @@ function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
       ) : (
         <>
           <PersonList personList={personList} errorStatus={errorStatus} errorMessage={errorMessage} />
-          <Pagination totalItems={totalItems} />
         </>
+      )}
+      {personList.length > 0 && (
+        <Pagination totalItems={totalItems} currentPage={Number(page)} changePage={changePage} />
       )}
       <footer>
         <ErrorButton />
       </footer>
     </>
   );
+}
+
+enum Params {
+  Search = 'search',
+  Page = 'page',
 }
 
 export default App;

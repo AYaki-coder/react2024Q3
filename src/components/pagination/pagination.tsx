@@ -1,12 +1,13 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode } from 'react';
 import './pagination.css';
 
 interface Props {
   readonly totalItems: number;
+  readonly currentPage: number;
+  readonly changePage: (currentPage: number, shouldIncrement: boolean) => void;
 }
 
-export function Pagination({ totalItems }: Props): ReactNode {
-  const [currentPage, setCurrentPage] = useState(1);
+export function Pagination({ totalItems, currentPage, changePage }: Props): ReactNode {
   const itemPerPage = 10;
   const totalPages = Math.ceil(totalItems / itemPerPage);
 
@@ -17,7 +18,7 @@ export function Pagination({ totalItems }: Props): ReactNode {
         className="btn-left"
         disabled={currentPage === 1}
         onClick={() => {
-          setCurrentPage((c) => c - 1);
+          changePage(currentPage, false);
         }}
       >
         prev
@@ -33,7 +34,7 @@ export function Pagination({ totalItems }: Props): ReactNode {
         className="btn-right"
         disabled={currentPage === totalPages}
         onClick={() => {
-          setCurrentPage((c) => c + 1);
+          changePage(currentPage, true);
         }}
       >
         next

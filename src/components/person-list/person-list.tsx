@@ -12,7 +12,7 @@ interface Props {
 export function PersonList({ personList, errorStatus, errorMessage }: Props): ReactNode {
   return (
     <div className="result-container">
-      {errorStatus && <div className="error">{errorMessage}</div>}
+      {errorStatus && <div className="noResults">{errorMessage}</div>}
       {personList.length > 0 && (
         <ul>
           {personList.map((x) => (
