@@ -7,6 +7,12 @@
   font-family: inherit;
 }
 
+.search::placeholder {
+  color: #8a8a8a;
+  font-size: 1em;
+  font-weight: 300;
+}
+
 .btn-search {
   border-radius: 0 8px 8px 0;
 }

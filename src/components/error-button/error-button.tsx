@@ -1,29 +1,19 @@
-import { PureComponent, ReactNode } from 'react';
+import { ReactNode, useState } from 'react';
 
-interface Props {}
-interface State {
-  hasError: boolean;
-}
+export function ErrorButton(): ReactNode {
+  const [hasError, setHasError] = useState(false);
 
-export class ErrorButton extends PureComponent<Props, State> {
-  constructor(readonly props: Props) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  componentDidUpdate(): void {
+  if (hasError) {
     throw new Error('ups!');
   }
 
-  throwError = () => {
-    this.setState({ hasError: true });
-  };
-
-  render(): ReactNode {
-    return (
-      <button type="button" className="btn-large" onClick={this.throwError}>
-        big error button
-      </button>
-    );
+  function throwError(): void {
+    setHasError(true);
   }
+
+  return (
+    <button type="button" className="btn-large" onClick={throwError}>
+      big error button
+    </button>
+  );
 }
