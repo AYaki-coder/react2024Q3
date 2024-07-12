@@ -6,9 +6,11 @@ import { SearchPanel } from './components/search-panel/search-panel';
 import { ApiService } from './service/api-service';
 import { ErrorButton } from './components/error-button/error-button';
 import { Loader } from './components/loader/loader';
+import { useLocalStorage } from './hooks/use-local-storage';
 
 function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
-  const [search, setSearch] = useState(localStorage.getItem('search') || '');
+  const [request, setRequest] = useLocalStorage('', 'search');
+  const [search, setSearch] = useState(request);
   const [personList, setPersonList] = useState<Person[]>([]);
   const [errorStatus, setErrorStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
@@ -39,7 +41,7 @@ function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
   }
 
   function handleButtonClick(): void {
-    localStorage.setItem('search', search);
+    setRequest(search);
     getPersonList();
   }
 
