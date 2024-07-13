@@ -1,0 +1,47 @@
+.detailed-person {
+  position: relative;
+  max-width: 30vw;
+  flex-basis: 30vw;
+  background-color: #1a1a1ad4;
+  border-radius: 8px 0 0 8px;
+  padding: 0.6em 1.2em;
+  border: 1px solid #473a0b;
+  transition: max-width 0.3s ease-in-out;
+  animation: open 0.3s linear;
+
+  .description {
+    display: block;
+  }
+}
+@keyframes open {
+  0% {
+    max-width: 0;
+  }
+  100% {
+    max-width: 30vw;
+  }
+}
+
+.detailed-info {
+  padding-top: 10vh;
+}
+
+.close-button {
+  position: absolute;
+  right: 20px;
+  color: #f7be06;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.close-button:hover {
+  color: #ffe9a7;
+}
+
+.detailed-loader {
+  width: 40%;
+  --width: 40%;
+  position: absolute;
+  top: calc(50% - var(--width) / 2);
+  left: calc(50% - var(--width) / 2);
+}

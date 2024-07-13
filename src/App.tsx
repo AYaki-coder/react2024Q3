@@ -1,16 +1,16 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import './App.css';
 import { Person } from './types';
 import { PersonList } from './components/person-list/person-list';
 import { SearchPanel } from './components/search-panel/search-panel';
-import { ApiService } from './service/api-service';
+import { apiService } from './service/api-service';
 import { ErrorButton } from './components/error-button/error-button';
 import { Loader } from './components/loader/loader';
 import { useLocalStorage } from './hooks/use-local-storage';
 import { Pagination } from './components/pagination/pagination';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
-function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
+function App(): ReactNode {
   const [params, setParams] = useSearchParams();
   const [request, setRequest] = useLocalStorage(params.get(Params.Search) ?? '', 'search');
   const [page, setPage] = useState(params.get(Params.Page) ?? '1');
@@ -20,13 +20,15 @@ function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
   const [errorStatus, setErrorStatus] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const ref = useRef({ isFirstLoad: true });
 
   useEffect(() => {
     getPersonList(search, page);
+    ref.current.isFirstLoad = false;
   }, []);
 
   function getPersonList(search: string, page: string): void {
-    console.log('getPersonList search:', search, ' page:', page);
+    const personId = ref.current.isFirstLoad ? params.get('personId') : '';
     setIsLoading(true);
     apiService
       .getAllPersons(search, page)
@@ -41,7 +43,7 @@ function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
         setErrorMessage(e.message);
       })
       .finally(() => {
-        setParams({ [Params.Search]: search, [Params.Page]: page });
+        setParams({ [Params.Search]: search, [Params.Page]: page, ...(personId ? { personId } : {}) });
         setIsLoading(false);
       });
   }
@@ -62,29 +64,39 @@ function App({ apiService }: { readonly apiService: ApiService }): ReactNode {
     const newCurrentPage = (shouldIncrement ? ++currentPage : --currentPage).toString();
 
     setPage(newCurrentPage);
-    console.log('page', page);
     getPersonList(search, newCurrentPage);
+  };
+  const asideClick = () => {
+    setParams((p) => {
+      p.delete(`personId`);
+      return p;
+    });
   };
 
   return (
-    <>
-      <header>
-        <SearchPanel handleButtonClick={handleButtonClick} handleChange={handleChange} value={search} />
-      </header>
-      {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <PersonList personList={personList} errorStatus={errorStatus} errorMessage={errorMessage} />
-        </>
-      )}
-      {personList.length > 0 && (
-        <Pagination totalItems={totalItems} currentPage={Number(page)} changePage={changePage} />
-      )}
-      <footer>
-        <ErrorButton />
-      </footer>
-    </>
+    <div className="page">
+      <aside className="main-page" onClick={asideClick}>
+        <header>
+          <SearchPanel handleButtonClick={handleButtonClick} handleChange={handleChange} value={search} />
+        </header>
+        {isLoading ? (
+          <div className="main-loader">
+            <Loader />
+          </div>
+        ) : (
+          <>
+            <PersonList personList={personList} errorStatus={errorStatus} errorMessage={errorMessage} />
+          </>
+        )}
+        {personList.length > 0 && (
+          <Pagination totalItems={totalItems} currentPage={Number(page)} changePage={changePage} />
+        )}
+        <footer>
+          <ErrorButton />
+        </footer>
+      </aside>
+      <Outlet />
+    </div>
   );
 }
 

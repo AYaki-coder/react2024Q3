@@ -1,8 +1,10 @@
 import { ReactNode } from 'react';
 import './person.css';
 import { Person as PersonResponse } from '../../types';
+import { useSearchParams } from 'react-router-dom';
 
 export function Person({ person }: { person: Readonly<PersonResponse> }): ReactNode {
+  const [params, setParams] = useSearchParams();
   const {
     name,
     height,
@@ -12,10 +14,22 @@ export function Person({ person }: { person: Readonly<PersonResponse> }): ReactN
     eye_color: eyeColor,
     gender,
     birth_year: birthYear,
+    url,
   } = person;
 
+  const id: string = url.split('/').reverse()[1];
+
+  const onClick = (e: React.SyntheticEvent) => {
+    e.stopPropagation();
+
+    setParams((currentParams) => {
+      currentParams.set(`personId`, id);
+      return params;
+    });
+  };
+
   return (
-    <li className="person">
+    <div className="person" onClick={onClick}>
       <div className="title">{name}</div>
       <div className="description">
         <div>
@@ -47,6 +61,6 @@ export function Person({ person }: { person: Readonly<PersonResponse> }): ReactN
           {gender ?? 'N/A'}
         </div>
       </div>
-    </li>
+    </div>
   );
 }
