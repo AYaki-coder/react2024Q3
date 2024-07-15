@@ -25,11 +25,10 @@ export class ErrorBoundary extends PureComponent<Props, State> {
     if (this.state.hasError) {
       return (
         <div className="error">
-          <h1>
+          <h1 className="error-title">
             Something went wrong.
             <button onClick={() => this.setState({ hasError: false })} className="btn-error">
-              {' '}
-              {`<= Back`}{' '}
+              {`<= Back`}
             </button>
           </h1>
         </div>

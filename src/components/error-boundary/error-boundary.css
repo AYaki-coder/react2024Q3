@@ -9,7 +9,7 @@
   background-size: cover;
 }
 
-h1 {
+.error-title {
   color: #c82f2f;
   position: absolute;
   right: 50%;
@@ -17,7 +17,7 @@ h1 {
 }
 
 @media (max-width: 980px) {
-  h1 {
+  .error-title {
     position: static;
   }
 }

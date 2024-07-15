@@ -23,9 +23,6 @@ li {
 
 #root {
   height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 header,
@@ -53,7 +50,7 @@ input:focus {
 }
 
 input[type='search']::-webkit-search-cancel-button {
-  appearance: none;
+  -webkit-appearance: none;
 }
 
 button {
@@ -68,6 +65,7 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: all 0.25s;
+  user-select: none;
 }
 
 button:hover {
@@ -79,6 +77,22 @@ button:active {
   background-color: #3a4863;
 }
 
+button:disabled {
+  background-color: #aaaaaa;
+  border-color: #aaaaaa;
+  color: #eeeeee;
+  pointer-events: none;
+  user-select: none;
+}
+
 .btn-large {
   min-width: 50%;
+}
+
+.btn-left {
+  border-radius: 8px 0 0 8px;
+}
+
+.btn-right {
+  border-radius: 0 8px 8px 0;
 }

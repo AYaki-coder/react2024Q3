@@ -3,9 +3,10 @@
   display: flex;
   flex-direction: column;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px 20px;
   flex-grow: 1;
   overflow-y: auto;
+  margin-bottom: 5px;
 
   &::-webkit-scrollbar {
     width: 7px;
@@ -17,7 +18,6 @@
   }
 }
 
-.error,
 .noResults {
   text-transform: uppercase;
   font-size: 2rem;

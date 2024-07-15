@@ -6,6 +6,12 @@
   border-radius: 8px;
   padding: 0.6em 1.2em;
   border: 1px solid #473a0b;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.person:hover {
+  background-color: #473a0b;
 }
 
 .title {

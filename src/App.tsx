@@ -1,80 +1,108 @@
-import { Component, ReactNode } from 'react';
+import { ReactNode, useEffect, useRef, useState } from 'react';
 import './App.css';
 import { Person } from './types';
 import { PersonList } from './components/person-list/person-list';
 import { SearchPanel } from './components/search-panel/search-panel';
-import { ApiService } from './service/api-service';
+import { apiService } from './service/api-service';
 import { ErrorButton } from './components/error-button/error-button';
 import { Loader } from './components/loader/loader';
+import { useLocalStorage } from './hooks/use-local-storage';
+import { Pagination } from './components/pagination/pagination';
+import { Outlet, useSearchParams } from 'react-router-dom';
 
-interface State {
-  search: string;
-  personList: Array<Person>;
-  errorStatus: boolean;
-  errorMessage: string;
-  isLoading: boolean;
-}
+function App(): ReactNode {
+  const [params, setParams] = useSearchParams();
+  const [request, setRequest] = useLocalStorage(params.get(Params.Search) ?? '', 'search');
+  const [page, setPage] = useState(params.get(Params.Page) ?? '1');
+  const [search, setSearch] = useState(request);
+  const [personList, setPersonList] = useState<Person[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [errorStatus, setErrorStatus] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const ref = useRef({ isFirstLoad: true });
 
-interface Props {
-  readonly apiService: ApiService;
-}
+  useEffect(() => {
+    getPersonList(search, page);
+    ref.current.isFirstLoad = false;
+  }, []);
 
-class App extends Component<Props, State> {
-  constructor(readonly props: Props) {
-    super(props);
-
-    this.state = {
-      search: localStorage.getItem('search') ?? '',
-      personList: [],
-      errorStatus: false,
-      errorMessage: '',
-      isLoading: false,
-    };
-  }
-
-  componentDidMount(): void {
-    this.getPersonList();
-  }
-
-  getPersonList(): void {
-    this.setState({ isLoading: true });
-    this.props.apiService
-      .getAllPersons(this.state.search)
-      .then((res) => this.setState({ personList: res.results, errorStatus: false, errorMessage: '' }))
-      .catch((e) => {
-        this.setState({ errorStatus: true, errorMessage: e.message });
+  function getPersonList(search: string, page: string): void {
+    const personId = ref.current.isFirstLoad ? params.get('personId') : '';
+    setIsLoading(true);
+    apiService
+      .getAllPersons(search, page)
+      .then((res) => {
+        setTotalItems(res.count);
+        setPersonList(res.results);
+        setErrorStatus(false);
+        setErrorMessage('');
       })
-      .finally(() => this.setState({ isLoading: false }));
+      .catch((e) => {
+        setErrorStatus(true);
+        setErrorMessage(e.message);
+      })
+      .finally(() => {
+        setParams({ [Params.Search]: search, [Params.Page]: page, ...(personId ? { personId } : {}) });
+        setIsLoading(false);
+      });
   }
 
-  handleChange = (e: React.FormEvent<HTMLInputElement>): void => {
-    const newValue = e.currentTarget.value;
-    this.setState({ search: newValue });
+  function handleChange(e: React.FormEvent<HTMLInputElement>): void {
+    setSearch(e.currentTarget.value);
+  }
+
+  const handleButtonClick = (): void => {
+    const currentPage = '1';
+    setPersonList([]);
+    setRequest(search);
+    getPersonList(search, currentPage);
+    setPage(currentPage);
   };
 
-  handleButtonClick = (): void => {
-    localStorage.setItem('search', this.state.search);
-    this.getPersonList();
+  const changePage = (currentPage: number, shouldIncrement: boolean): void => {
+    const newCurrentPage = (shouldIncrement ? ++currentPage : --currentPage).toString();
+
+    setPage(newCurrentPage);
+    getPersonList(search, newCurrentPage);
+  };
+  const asideClick = () => {
+    setParams((p) => {
+      p.delete(`personId`);
+      return p;
+    });
   };
 
-  render(): ReactNode {
-    const { personList, errorStatus, errorMessage, isLoading, search } = this.state;
-    return (
-      <>
+  return (
+    <div className="page">
+      <aside className="main-page" onClick={asideClick}>
         <header>
-          <SearchPanel handleButtonClick={this.handleButtonClick} handleChange={this.handleChange} value={search} />
+          <SearchPanel handleButtonClick={handleButtonClick} handleChange={handleChange} value={search} />
         </header>
         {isLoading ? (
-          <Loader />
+          <div className="main-loader">
+            <Loader />
+          </div>
         ) : (
-          <PersonList personList={personList} errorStatus={errorStatus} errorMessage={errorMessage} />
+          <>
+            <PersonList personList={personList} errorStatus={errorStatus} errorMessage={errorMessage} />
+          </>
+        )}
+        {personList.length > 0 && (
+          <Pagination totalItems={totalItems} currentPage={Number(page)} changePage={changePage} />
         )}
         <footer>
           <ErrorButton />
         </footer>
-      </>
-    );
-  }
+      </aside>
+      <Outlet />
+    </div>
+  );
+}
+
+enum Params {
+  Search = 'search',
+  Page = 'page',
 }
 
 export default App;
