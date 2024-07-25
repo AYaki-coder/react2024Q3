@@ -1,4 +1,3 @@
-import { ReactNode } from 'react';
 import { Person as PersonResponse } from '../../types';
 import './person-list.css';
 import { Person } from '../person/person';
@@ -9,7 +8,7 @@ interface Props {
   readonly errorMessage: string;
 }
 
-export function PersonList({ personList, errorStatus, errorMessage }: Props): ReactNode {
+export const PersonList: React.FC<Props> = ({ personList, errorStatus, errorMessage }: Props) => {
   return (
     <div className="result-container">
       {errorStatus && <div className="noResults">{errorMessage}</div>}
@@ -23,4 +22,4 @@ export function PersonList({ personList, errorStatus, errorMessage }: Props): Re
       {personList.length === 0 && <div className="noResults">no results</div>}
     </div>
   );
-}
+};

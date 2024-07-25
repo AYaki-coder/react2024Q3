@@ -1,4 +1,5 @@
 .person {
+  display: flex;
   list-style: none;
   font-family: inherit;
   margin-bottom: 0.5em;
@@ -32,4 +33,15 @@
 
 .description-title {
   color: #aaaaaa;
+}
+
+.person-checkbox {
+  width: fit-content;
+  height: fit-content;
+  align-self: center;
+  margin-right: 1.6rem;
+}
+
+.person-checkbox:hover {
+  box-shadow: 0px 0px 6px #f7be06;
 }
