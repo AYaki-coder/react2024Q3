@@ -3,7 +3,7 @@ import { Person } from '../../types';
 import './download-button.css';
 
 export const DownLoadButton: React.FC = () => {
-  const selectedPersons = useAppSelector((state) => state.persons.list);
+  const selectedPersons = useAppSelector((state) => state.selectedPersons.list);
 
   const convertToCSV = () => {
     return (

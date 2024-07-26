@@ -1,23 +1,32 @@
-import { ReactNode } from 'react';
 import './pagination.css';
+import { useAppSelector } from '../../store/storeHooks';
+import { useSearchParams } from 'react-router-dom';
+import { Params } from '../../types';
 
-interface Props {
-  readonly totalItems: number;
-  readonly currentPage: number;
-  readonly changePage: (currentPage: number, shouldIncrement: boolean) => void;
-}
-
-export function Pagination({ totalItems, currentPage, changePage }: Props): ReactNode {
+export const Pagination: React.FC = () => {
+  const [params, setParams] = useSearchParams();
+  const currentPage = params.get(Params.Page) || '1';
+  const totalItems = useAppSelector((state) => state.currentPage.totalItems);
   const itemPerPage = 10;
   const totalPages = Math.ceil(totalItems / itemPerPage);
+
+  const changePage = (currentPage: string, shouldIncrement: boolean): void => {
+    let pageNum = +currentPage;
+    const newCurrentPage = (shouldIncrement ? ++pageNum : --pageNum).toString();
+    params.delete(Params.PersonId);
+    params.set(Params.Page, newCurrentPage);
+
+    setParams(params);
+  };
 
   return (
     <div className="pagination">
       <button
         type="button"
         className="btn-left"
-        disabled={currentPage === 1}
-        onClick={() => {
+        disabled={currentPage === '1'}
+        onClick={(e) => {
+          e.stopPropagation();
           changePage(currentPage, false);
         }}
       >
@@ -32,8 +41,9 @@ export function Pagination({ totalItems, currentPage, changePage }: Props): Reac
       <button
         type="button"
         className="btn-right"
-        disabled={currentPage === totalPages}
-        onClick={() => {
+        disabled={+currentPage === totalPages}
+        onClick={(e) => {
+          e.stopPropagation();
           changePage(currentPage, true);
         }}
       >
@@ -41,4 +51,4 @@ export function Pagination({ totalItems, currentPage, changePage }: Props): Reac
       </button>
     </div>
   );
-}
+};

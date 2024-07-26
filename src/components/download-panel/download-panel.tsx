@@ -4,7 +4,7 @@ import { DownLoadButton } from '../download-button/download-button';
 import './download-panel.css';
 
 export const DownLoadPanel: React.FC = () => {
-  const persons = useAppSelector((state) => state.persons.list);
+  const persons = useAppSelector((state) => state.selectedPersons.list);
   const dispatch = useAppDispatch();
 
   const text = `${persons.length} ${persons.length === 1 ? 'item is' : 'items are'} selected`;

@@ -20,7 +20,7 @@ export const Person: React.FC<{ person: Readonly<PersonResponse> }> = ({ person 
   } = person;
 
   const id: string = url.split('/').reverse()[1];
-  const persons = useAppSelector((state) => state.persons.list);
+  const persons = useAppSelector((state) => state.selectedPersons.list);
   const hasPerson = !!persons.some((p) => p.name === name);
 
   const onClick = (e: React.SyntheticEvent) => {

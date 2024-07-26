@@ -7,7 +7,7 @@ const initialState: PersonsState = {
 };
 
 export const personSelectedSlice = createSlice({
-  name: 'persons',
+  name: 'selectedPersons',
   initialState: initialState,
   reducers: {
     toggleSelected(state, action: PayloadAction<Person>) {
@@ -25,4 +25,4 @@ export const personSelectedSlice = createSlice({
 });
 
 export const { toggleSelected, unselectAll } = personSelectedSlice.actions;
-export const personReducer = personSelectedSlice.reducer;
+export const selectedPersonsReducer = personSelectedSlice.reducer;
