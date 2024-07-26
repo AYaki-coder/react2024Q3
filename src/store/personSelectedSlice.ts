@@ -18,8 +18,11 @@ export const personSelectedSlice = createSlice({
         state.list.push(action.payload);
       }
     },
+    unselectAll(state) {
+      state.list = [];
+    },
   },
 });
 
-export const { toggleSelected } = personSelectedSlice.actions;
+export const { toggleSelected, unselectAll } = personSelectedSlice.actions;
 export const personReducer = personSelectedSlice.reducer;

@@ -9,6 +9,7 @@ import { Loader } from './components/loader/loader';
 import { useLocalStorage } from './hooks/use-local-storage';
 import { Pagination } from './components/pagination/pagination';
 import { Outlet, useSearchParams } from 'react-router-dom';
+import { DownLoadPanel } from './components/download-panel/download-panel';
 
 function App(): ReactNode {
   const [params, setParams] = useSearchParams();
@@ -28,7 +29,7 @@ function App(): ReactNode {
   }, []);
 
   function getPersonList(search: string, page: string): void {
-    const personId = ref.current.isFirstLoad ? params.get('personId') : '';
+    const personId = ref.current.isFirstLoad ? params.get(Params.PersonId) : '';
     setIsLoading(true);
     apiService
       .getAllPersons(search, page)
@@ -68,7 +69,7 @@ function App(): ReactNode {
   };
   const asideClick = () => {
     setParams((p) => {
-      p.delete(`personId`);
+      p.delete(Params.PersonId);
       return p;
     });
   };
@@ -94,6 +95,7 @@ function App(): ReactNode {
         <footer>
           <ErrorButton />
         </footer>
+        <DownLoadPanel />
       </aside>
       <Outlet />
     </div>
@@ -103,6 +105,7 @@ function App(): ReactNode {
 enum Params {
   Search = 'search',
   Page = 'page',
+  PersonId = 'personId',
 }
 
 export default App;
