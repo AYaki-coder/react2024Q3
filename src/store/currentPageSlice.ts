@@ -5,7 +5,6 @@ import { Person } from '../types';
 const initialState: CurrentPageState = {
   list: [],
   totalItems: 0,
-  isLoading: true,
 };
 
 export const currentPageSlice = createSlice({

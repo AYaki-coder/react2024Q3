@@ -23,7 +23,7 @@ function App(): ReactNode {
   const searchRequest = params.get(Params.Search) ?? '';
   const page = params.get(Params.Page) ?? '';
 
-  const { data, isLoading, isError } = useGetPersonsQuery({ search: searchRequest, page });
+  const { data, isLoading, isFetching, isError } = useGetPersonsQuery({ search: searchRequest, page });
 
   useEffect(() => {
     if (data) {
@@ -38,6 +38,7 @@ function App(): ReactNode {
 
   const handleButtonClick = (e: React.SyntheticEvent): void => {
     e.stopPropagation();
+    dispatch(setTotalItems(0));
     const currentPage = '1';
     setRequest(search);
     setParams({ [Params.Page]: currentPage, [Params.Search]: search });
@@ -56,7 +57,7 @@ function App(): ReactNode {
         <header>
           <SearchPanel handleButtonClick={handleButtonClick} handleChange={handleChange} value={search} />
         </header>
-        {isLoading ? (
+        {isLoading || isFetching ? (
           <div className="main-loader">
             <Loader />
           </div>

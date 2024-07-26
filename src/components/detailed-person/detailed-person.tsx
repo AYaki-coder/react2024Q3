@@ -1,26 +1,31 @@
 import { ReactNode, useEffect, useState } from 'react';
 import './detailed-person.css';
-import { Person } from '../../types';
+import { Params, Person } from '../../types';
 import { useSearchParams } from 'react-router-dom';
-import { apiService } from '../../service/api-service';
 import { Loader } from '../loader/loader';
+import { useAppDispatch } from '../../store/storeHooks';
+import { clearCurrentPerson, setCurrentPerson } from '../../store/detailedPersonSlice';
+import { useGetQuery } from '../../store/personsApi';
 
 export function DetailedPerson(): ReactNode {
+  const dispatch = useAppDispatch();
   const [params, setParams] = useSearchParams();
   const [person, setPerson] = useState<null | Person>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const personId = params.get('personId');
+  const personId = params.get(Params.PersonId) ?? '';
+
+  const { data, isLoading, isFetching } = useGetQuery(personId);
 
   useEffect(() => {
     if (!personId) {
+      dispatch(clearCurrentPerson());
       return setPerson(null);
     }
-    setIsLoading(true);
-    apiService
-      .getPerson(personId)
-      .then((p) => setPerson(p))
-      .finally(() => setIsLoading(false));
-  }, [personId]);
+
+    if (data) {
+      dispatch(setCurrentPerson(data));
+      setPerson(data);
+    }
+  }, [data, dispatch, personId]);
 
   const {
     name,
@@ -37,14 +42,14 @@ export function DetailedPerson(): ReactNode {
     e.stopPropagation();
 
     setParams((p) => {
-      p.delete(`personId`);
+      p.delete(Params.PersonId);
       return p;
     });
   }
 
   return !personId ? null : (
     <div className="detailed-person">
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <div className="detailed-loader">
           <Loader />
         </div>

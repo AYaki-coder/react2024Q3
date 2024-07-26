@@ -1,5 +1,5 @@
 import './person.css';
-import { Person as PersonResponse } from '../../types';
+import { Params, Person as PersonResponse } from '../../types';
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/storeHooks';
 import { toggleSelected } from '../../store/personSelectedSlice';
@@ -27,7 +27,7 @@ export const Person: React.FC<{ person: Readonly<PersonResponse> }> = ({ person 
     e.stopPropagation();
 
     setParams((currentParams) => {
-      currentParams.set(`personId`, id);
+      currentParams.set(Params.PersonId, id);
       return params;
     });
   };

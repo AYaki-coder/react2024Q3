@@ -7,5 +7,8 @@ export interface PersonsState {
 export interface CurrentPageState {
   list: Person[];
   totalItems: number;
-  isLoading: boolean;
+}
+
+export interface DetailedPersonState {
+  person: Person | null;
 }

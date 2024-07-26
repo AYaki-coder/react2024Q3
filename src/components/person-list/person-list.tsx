@@ -19,7 +19,7 @@ export const PersonList: React.FC<Props> = ({ errorStatus }: Props) => {
           ))}
         </ul>
       )}
-      {persons.length === 0 && <div className="noResults">no results</div>}
+      {!errorStatus && persons.length === 0 && <div className="noResults">no results</div>}
     </div>
   );
 };
