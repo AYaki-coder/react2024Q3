@@ -3,8 +3,11 @@ import { Params, Person as PersonResponse } from '../../types';
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/storeHooks';
 import { toggleSelected } from '../../store/personSelectedSlice';
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/theme-context';
 
 export const Person: React.FC<{ person: Readonly<PersonResponse> }> = ({ person }) => {
+  const theme = useContext(ThemeContext);
   const [params, setParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const {
@@ -23,7 +26,7 @@ export const Person: React.FC<{ person: Readonly<PersonResponse> }> = ({ person 
   const persons = useAppSelector((state) => state.selectedPersons.list);
   const hasPerson = !!persons.some((p) => p.name === name);
 
-  const onClick = (e: React.SyntheticEvent) => {
+  const onClick = (e: React.SyntheticEvent): void => {
     e.stopPropagation();
 
     setParams((currentParams) => {
@@ -32,17 +35,27 @@ export const Person: React.FC<{ person: Readonly<PersonResponse> }> = ({ person 
     });
   };
 
+  const onCheck = (e: React.SyntheticEvent): void => {
+    e.stopPropagation();
+    setParams((p) => {
+      p.delete(Params.PersonId);
+      return p;
+    });
+  };
+
   return (
-    <div className="person" onClick={onClick}>
-      <input
-        className="person-checkbox"
-        type="checkbox"
-        checked={hasPerson}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        onChange={() => dispatch(toggleSelected(person))}
-      />
+    <div className={`${'person'} ${theme}`} onClick={onClick}>
+      <div className="custom-checkbox">
+        <input
+          name="person"
+          className="person-checkbox"
+          type="checkbox"
+          checked={hasPerson}
+          onClick={onCheck}
+          onChange={() => dispatch(toggleSelected(person))}
+        />
+        <label htmlFor="person"></label>
+      </div>
       <div>
         <div className="title">{name}</div>
         <div className="description">

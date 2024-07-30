@@ -2,8 +2,11 @@ import './pagination.css';
 import { useAppSelector } from '../../store/storeHooks';
 import { useSearchParams } from 'react-router-dom';
 import { Params } from '../../types';
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/theme-context';
 
 export const Pagination: React.FC = () => {
+  const theme = useContext(ThemeContext);
   const [params, setParams] = useSearchParams();
   const totalItems = useAppSelector((state) => state.currentPage.totalItems);
   const currentPage = totalItems ? params.get(Params.Page) || '1' : '';
@@ -22,7 +25,7 @@ export const Pagination: React.FC = () => {
 
   return (
     currentPage && (
-      <div className="pagination">
+      <div className={`${'pagination'} ${theme}`}>
         <button
           type="button"
           className="btn-left"

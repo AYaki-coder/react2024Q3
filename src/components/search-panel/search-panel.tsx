@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
 import './search-panel.css';
+import { ThemeContext } from '../../context/theme-context';
 
 interface Props {
   readonly value: string;
@@ -8,8 +9,9 @@ interface Props {
 }
 
 export function SearchPanel({ value, handleChange, handleButtonClick }: Props): ReactNode {
+  const theme = useContext(ThemeContext);
   return (
-    <div className="search-container">
+    <div className={`${'search-container'} ${theme}`}>
       <input
         onChange={handleChange}
         value={value}

@@ -15,4 +15,9 @@
 .search-container {
   min-width: 50%;
   display: flex;
+  border-radius: 8px;
+}
+
+.light .search::placeholder {
+  color: #c0c0c0;
 }

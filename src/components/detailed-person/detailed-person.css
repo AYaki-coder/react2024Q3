@@ -6,8 +6,8 @@
   border-radius: 8px 0 0 8px;
   padding: 0.6em 1.2em;
   border: 1px solid #473a0b;
-  transition: max-width 0.3s ease-in-out;
-  animation: open 0.3s linear;
+  transition: max-width 0.25s ease-in-out;
+  animation: open 0.25s linear;
 
   .description {
     display: block;
@@ -44,4 +44,28 @@
   position: absolute;
   top: calc(50% - var(--width) / 2);
   left: calc(50% - var(--width) / 2);
+}
+
+.light.detailed-person {
+  background-color: #ffffffed;
+  border: 1px solid #b8e2ff;
+}
+.light.detailed-person .close-button {
+  color: #008aea;
+}
+
+.light.detailed-person .close-button:hover {
+  color: #005184;
+}
+
+.light.detailed-person .title {
+  color: #008aea;
+}
+
+.light.detailed-person .description {
+  color: #444444;
+}
+
+.light.detailed-person .description-title {
+  color: #828282;
 }

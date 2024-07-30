@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import './detailed-person.css';
 import { Params, Person } from '../../types';
 import { useSearchParams } from 'react-router-dom';
@@ -6,9 +6,11 @@ import { Loader } from '../loader/loader';
 import { useAppDispatch } from '../../store/storeHooks';
 import { clearCurrentPerson, setCurrentPerson } from '../../store/detailedPersonSlice';
 import { useGetQuery } from '../../store/personsApi';
+import { ThemeContext } from '../../context/theme-context';
 
 export function DetailedPerson(): ReactNode {
   const dispatch = useAppDispatch();
+  const theme = useContext(ThemeContext);
   const [params, setParams] = useSearchParams();
   const [person, setPerson] = useState<null | Person>(null);
   const personId = params.get(Params.PersonId) ?? '';
@@ -48,7 +50,7 @@ export function DetailedPerson(): ReactNode {
   }
 
   return !personId ? null : (
-    <div className="detailed-person">
+    <div className={`${'detailed-person'} ${theme}`}>
       {isLoading || isFetching ? (
         <div className="detailed-loader">
           <Loader />

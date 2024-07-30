@@ -2,6 +2,14 @@
   height: 100%;
   display: flex;
   justify-content: space-between;
+  background-color: #242424;
+  background-image: url(./assets/background.jpg);
+  transition: all 0.25s;
+}
+
+.page.light {
+  background-color: #ffffff;
+  background-image: url(./assets/background-light.jpg);
 }
 
 .main-page {

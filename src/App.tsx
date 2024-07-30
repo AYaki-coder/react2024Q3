@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState } from 'react';
+import { ReactNode, useContext, useEffect, useState } from 'react';
 import './App.css';
 import { Params } from './types';
 import { PersonList } from './components/person-list/person-list';
@@ -12,9 +12,13 @@ import { DownLoadPanel } from './components/download-panel/download-panel';
 import { useAppDispatch } from './store/storeHooks';
 import { useGetPersonsQuery } from './store/personsApi';
 import { setCurrentPersons, setTotalItems } from './store/currentPageSlice';
+import { ThemeToggler } from './components/theme-toggler/theme-toggler';
+import { ThemeContext } from './context/theme-context';
 
 function App(): ReactNode {
   const dispatch = useAppDispatch();
+  const systemTheme = useContext(ThemeContext);
+  const [theme, setTheme] = useLocalStorage(systemTheme, 'app-theme');
 
   const [params, setParams] = useSearchParams();
   const [request, setRequest] = useLocalStorage(params.get(Params.Search) ?? '', 'search');
@@ -44,6 +48,10 @@ function App(): ReactNode {
     setParams({ [Params.Page]: currentPage, [Params.Search]: search });
   };
 
+  const changeTheme = (theme: string): void => {
+    setTheme(theme);
+  };
+
   const asideClick = () => {
     setParams((p) => {
       p.delete(Params.PersonId);
@@ -51,31 +59,36 @@ function App(): ReactNode {
     });
   };
 
+  const pageClassName = theme === 'light' ? 'light page' : 'page';
+
   return (
-    <div className="page">
-      <aside className="main-page" onClick={asideClick}>
-        <header>
-          <SearchPanel handleButtonClick={handleButtonClick} handleChange={handleChange} value={search} />
-        </header>
-        {isLoading || isFetching ? (
-          <div className="main-loader">
-            <Loader />
-          </div>
-        ) : (
-          <>
-            <PersonList errorStatus={isError} />
-          </>
-        )}
+    <ThemeContext.Provider value={theme}>
+      <div className={pageClassName}>
+        <aside className="main-page" onClick={asideClick}>
+          <header>
+            <SearchPanel handleButtonClick={handleButtonClick} handleChange={handleChange} value={search} />
+            <ThemeToggler changeTheme={changeTheme} />
+          </header>
+          {isLoading || isFetching ? (
+            <div className="main-loader">
+              <Loader />
+            </div>
+          ) : (
+            <>
+              <PersonList errorStatus={isError} />
+            </>
+          )}
 
-        <Pagination />
+          <Pagination />
 
-        <footer>
-          <ErrorButton />
-        </footer>
-        <DownLoadPanel />
-      </aside>
-      <Outlet />
-    </div>
+          <footer>
+            <ErrorButton />
+          </footer>
+          <DownLoadPanel />
+        </aside>
+        <Outlet />
+      </div>
+    </ThemeContext.Provider>
   );
 }
 

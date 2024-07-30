@@ -1,6 +1,8 @@
-import { ReactNode } from 'react';
+import { ReactNode, useContext } from 'react';
 import './loader.css';
+import { ThemeContext } from '../../context/theme-context';
 
 export function Loader(): ReactNode {
-  return <div className="loader"></div>;
+  const theme = useContext(ThemeContext);
+  return <div className={`${'loader'} ${theme}`}></div>;
 }

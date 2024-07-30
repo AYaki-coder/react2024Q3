@@ -1,9 +1,12 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/theme-context';
 import { unselectAll } from '../../store/personSelectedSlice';
 import { useAppDispatch, useAppSelector } from '../../store/storeHooks';
 import { DownLoadButton } from '../download-button/download-button';
 import './download-panel.css';
 
 export const DownLoadPanel: React.FC = () => {
+  const theme = useContext(ThemeContext);
   const persons = useAppSelector((state) => state.selectedPersons.list);
   const dispatch = useAppDispatch();
 
@@ -11,7 +14,7 @@ export const DownLoadPanel: React.FC = () => {
 
   return (
     persons.length && (
-      <div className="download-panel">
+      <div className={`${'download-panel'} ${theme}`}>
         <div className="download-container">
           {text}
           <div>

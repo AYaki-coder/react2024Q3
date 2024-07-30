@@ -1,8 +1,12 @@
+import { useContext } from 'react';
+import { ThemeContext } from '../../context/theme-context';
 import { useAppSelector } from '../../store/storeHooks';
 import { Person } from '../../types';
 import './download-button.css';
 
 export const DownLoadButton: React.FC = () => {
+  const theme = useContext(ThemeContext);
+
   const selectedPersons = useAppSelector((state) => state.selectedPersons.list);
 
   const convertToCSV = () => {
@@ -27,7 +31,7 @@ export const DownLoadButton: React.FC = () => {
 
   return (
     <a href={csvURL} download={`${`${personsCount}_person${personsCount === 1 ? '' : 's'}`}.csv`}>
-      <button className="main-action-btn" type="button">
+      <button className={`${'main-action-btn'} ${theme}`} type="button">
         download
       </button>
     </a>
