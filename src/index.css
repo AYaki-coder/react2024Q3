@@ -10,8 +10,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   height: 100vh;
-  background-color: #242424;
-  background-image: url(./assets/background.jpg);
+
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -95,4 +94,34 @@ button:disabled {
 
 .btn-right {
   border-radius: 0 8px 8px 0;
+}
+
+.light input {
+  color: #ffffff;
+  background-color: #0089eac5;
+}
+
+.light input:focus {
+  border-bottom-color: #008aea;
+}
+
+.light button {
+  border: 2px solid #008aea;
+  color: #008aea;
+  background-color: #ffffff;
+}
+
+.light button:hover {
+  border-color: #005184;
+  color: #005184;
+}
+
+.light button:active {
+  background-color: #c7c7c7;
+}
+
+.light button:disabled {
+  background-color: #aaaaaa;
+  border-color: #aaaaaa;
+  color: #eeeeee;
 }

@@ -7,6 +7,8 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 import { NotFoundPage } from './pages/not-found/not-found.tsx';
 import { DetailedPerson } from './components/detailed-person/detailed-person.tsx';
+import { Provider } from 'react-redux';
+import store from './store/store.ts';
 
 const router = createBrowserRouter([
   {
@@ -18,9 +20,11 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <ErrorBoundary>
-      <RouterProvider router={router} />
-    </ErrorBoundary>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <React.StrictMode>
+      <ErrorBoundary>
+        <RouterProvider router={router} />
+      </ErrorBoundary>
+    </React.StrictMode>
+  </Provider>,
 );

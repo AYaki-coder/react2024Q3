@@ -24,3 +24,14 @@
   text-align: center;
   color: #c82f2f;
 }
+
+.light.result-container {
+  &::-webkit-scrollbar {
+    width: 7px;
+    background-color: #ffffff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #008aea40;
+  }
+}

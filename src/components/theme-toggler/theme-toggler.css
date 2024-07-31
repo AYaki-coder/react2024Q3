@@ -1,0 +1,47 @@
+.toggle-container {
+  height: 100%;
+  margin-left: 20px;
+}
+
+.checkbox {
+  opacity: 0;
+  position: absolute;
+}
+
+.checkbox-label {
+  background-color: #433607;
+  width: 5em;
+  height: 100%;
+  border-radius: 8px;
+  position: relative;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid #ffc107;
+}
+
+.checkbox-label .ball {
+  background-color: #fff;
+  width: 2em;
+  height: 2em;
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  border-radius: 8px;
+  transition: all 0.25s linear;
+  border: 2px solid #008aea;
+}
+
+.checkbox:checked + .checkbox-label .ball {
+  transform: translateX(2.4em);
+  background-color: #1a1a1a;
+  border: 2px solid #ffc107;
+}
+
+.light.toggle-container .checkbox-label {
+  background-color: #008aea40;
+
+  border: 2px solid #008aea;
+}

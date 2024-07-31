@@ -23,3 +23,9 @@ export interface ApiResponse {
   previous: string;
   results: Array<Readonly<Person>>;
 }
+
+export const enum Params {
+  Search = 'search',
+  Page = 'page',
+  PersonId = 'personId',
+}

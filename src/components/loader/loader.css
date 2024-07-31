@@ -13,3 +13,10 @@
     transform: rotate(1turn);
   }
 }
+
+.light.loader {
+  background:
+    radial-gradient(farthest-side, #008aea 94%, #0000) top/18px 18px no-repeat,
+    conic-gradient(#0000 30%, #008aea);
+  -webkit-mask: radial-gradient(farthest-side, #0000 calc(100% - 18px), #000 0);
+}
