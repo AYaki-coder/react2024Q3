@@ -63,7 +63,7 @@ function App(): ReactNode {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div className={pageClassName}>
+      <div className={pageClassName} data-testid="appRoot">
         <aside className="main-page" onClick={asideClick}>
           <header>
             <SearchPanel handleButtonClick={handleButtonClick} handleChange={handleChange} value={search} />

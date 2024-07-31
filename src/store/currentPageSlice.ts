@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CurrentPageState } from './types';
 import { Person } from '../types';
 
-const initialState: CurrentPageState = {
+export const initialState: CurrentPageState = {
   list: [],
   totalItems: 0,
 };

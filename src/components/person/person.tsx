@@ -8,7 +8,7 @@ import { ThemeContext } from '../../context/theme-context';
 
 export const Person: React.FC<{ person: Readonly<PersonResponse> }> = ({ person }) => {
   const theme = useContext(ThemeContext);
-  const [params, setParams] = useSearchParams();
+  const [, setParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const {
     name,
@@ -31,7 +31,7 @@ export const Person: React.FC<{ person: Readonly<PersonResponse> }> = ({ person 
 
     setParams((currentParams) => {
       currentParams.set(Params.PersonId, id);
-      return params;
+      return currentParams;
     });
   };
 

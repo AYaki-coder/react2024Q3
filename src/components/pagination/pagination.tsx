@@ -25,9 +25,10 @@ export const Pagination: React.FC = () => {
 
   return (
     currentPage && (
-      <div className={`${'pagination'} ${theme}`}>
+      <div className={`${'pagination'} ${theme}`} data-testid="pagination">
         <button
           type="button"
+          aria-label="prev"
           className="btn-left"
           disabled={currentPage === '1'}
           onClick={(e) => {
@@ -45,6 +46,7 @@ export const Pagination: React.FC = () => {
         </div>
         <button
           type="button"
+          aria-label="next"
           className="btn-right"
           disabled={+currentPage === totalPages}
           onClick={(e) => {

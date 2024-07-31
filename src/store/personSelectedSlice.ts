@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { PersonsState } from './types';
 import { Person } from '../types';
 
-const initialState: PersonsState = {
+export const initialState: PersonsState = {
   list: [],
 };
 

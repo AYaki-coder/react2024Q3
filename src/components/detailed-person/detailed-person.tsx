@@ -50,7 +50,7 @@ export function DetailedPerson(): ReactNode {
   }
 
   return !personId ? null : (
-    <div className={`${'detailed-person'} ${theme}`}>
+    <div className={`${'detailed-person'} ${theme}`} data-testid="detailed-person">
       {isLoading || isFetching ? (
         <div className="detailed-loader">
           <Loader />

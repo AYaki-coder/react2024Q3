@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Person } from '../types';
 import { DetailedPersonState } from './types';
 
-const initialState: DetailedPersonState = {
+export const initialState: DetailedPersonState = {
   person: null,
 };
 
