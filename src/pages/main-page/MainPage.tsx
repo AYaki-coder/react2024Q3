@@ -19,7 +19,6 @@ export const MainPage: React.FC = () => {
       <div className={s.cardContainer}>
         {dataForRender.list.map((d) => {
           const { name, age, email, password, gender, country, terms, date, picture } = d;
-          console.log(d);
           return (
             <Card
               key={name}

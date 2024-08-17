@@ -72,8 +72,6 @@ export const UncontrolledForm: React.FC = () => {
         );
         setErrors(errors);
       });
-
-    console.log('submit', formData);
   };
   return (
     <div>

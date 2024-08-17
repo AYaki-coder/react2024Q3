@@ -4,6 +4,32 @@
   border-radius: 5px;
   box-shadow: var(--box-shadow);
   width: 600px;
+  transition: all 0.3 linear;
+
+  &:first-child {
+    animation: color 6s linear;
+  }
+}
+
+@keyframes color {
+  0% {
+    background: #33cccc;
+  }
+  20% {
+    background: #33cc36;
+  }
+  40% {
+    background: #b8cc33;
+  }
+  60% {
+    background: #fcca00;
+  }
+  80% {
+    background: #33cc36;
+  }
+  100% {
+    background: #33cccc;
+  }
 }
 
 .cardHeader {
