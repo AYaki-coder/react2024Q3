@@ -23,7 +23,7 @@ export interface FormErrors {
 }
 
 export interface CardFormData {
-  terms?: true | undefined;
+  terms: boolean;
   name: string;
   email: string;
   age: number;
@@ -36,7 +36,7 @@ export interface CardFormData {
 
 export interface DataForRender {
   date: string;
-  terms: true;
+  terms: boolean;
   name: string;
   email: string;
   age: number;

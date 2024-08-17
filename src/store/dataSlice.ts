@@ -11,7 +11,7 @@ export const dataSlice = createSlice({
   initialState: initialState,
   reducers: {
     addData(state: DataState, action: PayloadAction<DataForRender>) {
-      state.list.push(action);
+      state.list.push(action.payload);
     },
   },
 });

@@ -5,7 +5,7 @@ export const schema = yup.object().shape({
   name: yup
     .string()
     .required('Enter your name.')
-    .matches(/^[A-Z][a-z0-9_-]{2,19}$/, 'First letter should be capitalized.'),
+    .matches(/^[A-Z]/, 'First letter should be capitalized.'),
   email: yup.string().required('Enter your e-mail.').email('The input should be an e-mail address.'),
   age: yup
     .number()
@@ -56,5 +56,5 @@ export const schema = yup.object().shape({
       const type = files?.[0]?.type;
       return type === 'image/jpeg' || type === 'image/png';
     }),
-  terms: yup.boolean().isTrue('You did not accepted Terms and Conditions'),
+  terms: yup.boolean().isTrue('You did not accepted Terms and Conditions').required(),
 });

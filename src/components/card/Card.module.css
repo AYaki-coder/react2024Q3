@@ -19,9 +19,18 @@
 }
 
 .cardImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.cardImageContainer {
   display: flex;
   flex: 0 0 auto;
-  width: 40%;
+  width: 232px;
+  height: 232px;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .cardData {

@@ -8,9 +8,11 @@ import { useState } from 'react';
 import { convertTo64Base } from '../../utils/convert';
 import { addData } from '../../store/dataSlice';
 import { useAppDispatch } from '../../store/storeHooks';
+import { useNavigate } from 'react-router-dom';
 
 export const UncontrolledForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [errors, setErrors] = useState<Partial<FormErrors>>({});
   const onSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -55,6 +57,7 @@ export const UncontrolledForm: React.FC = () => {
           terms: true,
         };
         dispatch(addData(newData));
+        navigate(Endpoints.Main);
       })
       .catch((validationErrors: yup.ValidationError) => {
         const errors: Partial<FormErrors> = validationErrors.inner.reduce(
@@ -92,7 +95,7 @@ export const UncontrolledForm: React.FC = () => {
               Age:
             </label>
             <div className={s.formInputContainer}>
-              <input className={s.formInput} id="age" name="age" type="text" placeholder="Enter your age" />
+              <input className={s.formInput} id="age" name="age" type="number" placeholder="Enter your age" />
               <p className={s.errorMessage}>{errors?.age}</p>
             </div>
           </div>

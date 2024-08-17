@@ -8,8 +8,10 @@ import { schema } from '../../utils/validator-scheme';
 import { convertTo64Base } from '../../utils/convert';
 import { useAppDispatch } from '../../store/storeHooks';
 import { addData } from '../../store/dataSlice';
+import { useNavigate } from 'react-router-dom';
 
 export const ControlledForm: React.FC = () => {
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -34,6 +36,7 @@ export const ControlledForm: React.FC = () => {
       terms: true,
     };
     dispatch(addData(newData));
+    navigate(Endpoints.Main);
   };
 
   return (
