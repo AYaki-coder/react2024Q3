@@ -1,9 +1,11 @@
 .card {
   background-color: var(--white);
-  padding: 20px 10px;
+  padding: 30px 20px;
   border-radius: 0.625rem;
   width: 80%;
-  max-width: 1000px;
+  max-width: 600px;
+  margin: 0 auto;
+  box-shadow: var(--box-shadow);
 }
 
 .formRow {
@@ -22,10 +24,14 @@
   color: var(--blue);
 }
 
-.formInput {
+.formInputContainer {
   flex: 0 0 auto;
   width: 66.66666667%;
   display: block;
+}
+
+.formInput {
+  width: 100%;
   padding: 0.8rem 1rem;
   font-size: 16px;
   border-radius: 0.625rem;
@@ -96,7 +102,7 @@
   border: none;
   cursor: pointer;
   background-color: var(--rosa);
-  transition: color 0.2s ease;
+  transition: color 0.3s ease-out;
   color: var(--white);
   width: 100%;
 
@@ -112,4 +118,13 @@
 
 .terms {
   margin-right: 10px;
+}
+
+.errorMessage {
+  width: 100%;
+  height: calc(0.5rem + 15px);
+  display: block;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--red);
 }
