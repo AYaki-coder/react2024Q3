@@ -10,118 +10,31 @@ body {
   min-width: 320px;
   min-height: 100vh;
   height: 100vh;
+}
 
+:root {
+  color-scheme: light dark;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
-}
 
-li {
-  list-style: none;
-}
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 
-#root {
-  height: 100%;
-}
+  --beige: #fff5e1;
+  --blue: #0c1844;
+  --red: #c80036;
+  --rosa: #ff6969;
+  --white: #fff;
 
-header,
-footer {
-  padding: 20px;
-  display: flex;
-  place-content: center;
-}
+  --text-gray-700: #676767;
+  --text-gray-900: #434651;
 
-input {
-  padding: 0.6em 1.2em;
-  border-radius: 8px;
-  border: 2px solid transparent;
-  color: #ffc107;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #ffc10742;
-  outline: none;
-  transition: border-color 0.25s;
-}
+  --input-focused: #f7e6c5;
 
-input:focus {
-  border-bottom-color: #ffc107;
-}
+  --box-shadow: 0px 3px 4px 0px rgba(0, 0, 0, 0.03);
 
-input[type='search']::-webkit-search-cancel-button {
-  -webkit-appearance: none;
-}
-
-button {
-  border-radius: 8px;
-  border: 2px solid #ffc107;
-  color: #ffc107;
-  text-transform: uppercase;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: all 0.25s;
-  user-select: none;
-}
-
-button:hover {
-  border-color: #ffe9a7;
-  color: #ffe9a7;
-}
-
-button:active {
-  background-color: #3a4863;
-}
-
-button:disabled {
-  background-color: #aaaaaa;
-  border-color: #aaaaaa;
-  color: #eeeeee;
-  pointer-events: none;
-  user-select: none;
-}
-
-.btn-large {
-  min-width: 50%;
-}
-
-.btn-left {
-  border-radius: 8px 0 0 8px;
-}
-
-.btn-right {
-  border-radius: 0 8px 8px 0;
-}
-
-.light input {
-  color: #ffffff;
-  background-color: #0089eac5;
-}
-
-.light input:focus {
-  border-bottom-color: #008aea;
-}
-
-.light button {
-  border: 2px solid #008aea;
-  color: #008aea;
-  background-color: #ffffff;
-}
-
-.light button:hover {
-  border-color: #005184;
-  color: #005184;
-}
-
-.light button:active {
-  background-color: #c7c7c7;
-}
-
-.light button:disabled {
-  background-color: #aaaaaa;
-  border-color: #aaaaaa;
-  color: #eeeeee;
+  background-color: var(--beige);
 }

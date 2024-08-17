@@ -1,0 +1,23 @@
+.header {
+  height: 70px;
+  width: 100%;
+  background-color: var(--white);
+  display: flex;
+  padding: 0 40px;
+  box-shadow: var(--box-shadow);
+  margin-bottom: 30px;
+}
+
+.link {
+  margin: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--rosa);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in;
+}
+
+.link:hover {
+  color: var(--red);
+}

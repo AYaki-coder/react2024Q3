@@ -1,0 +1,115 @@
+.card {
+  background-color: var(--white);
+  padding: 20px 10px;
+  border-radius: 0.625rem;
+  width: 80%;
+  max-width: 1000px;
+}
+
+.formRow {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: baseline;
+  margin-bottom: 20px;
+  border: none;
+}
+
+.formLabel {
+  flex: 0 0 auto;
+  width: 33.33333333%;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--blue);
+}
+
+.formInput {
+  flex: 0 0 auto;
+  width: 66.66666667%;
+  display: block;
+  padding: 0.8rem 1rem;
+  font-size: 16px;
+  border-radius: 0.625rem;
+  font-weight: 500;
+  outline: none;
+  border: none;
+
+  background-color: var(--beige);
+  transition: color 0.2s ease;
+  color: var(--blue);
+
+  &:focus {
+    background-color: var(--input-focused);
+  }
+}
+
+.genderInput {
+  display: none;
+}
+
+.genderContainer {
+  flex: 0 0 auto;
+  width: 66.66666667%;
+  display: flex;
+}
+
+.genderLabel {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  padding: 0.8rem 1rem;
+  border: solid 1px var(--blue);
+  border-radius: 0.625rem;
+  font-size: 16px;
+  border-radius: 0.625rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+  cursor: pointer;
+
+  &:first-of-type {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  &:last-of-type {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
+.genderInput:checked + label {
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+.countries {
+  height: 2.5rem;
+  overflow: scroll;
+}
+
+.submit {
+  padding: 0.8rem 1rem;
+  font-size: 16px;
+  border-radius: 0.625rem;
+  font-weight: 500;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: var(--rosa);
+  transition: color 0.2s ease;
+  color: var(--white);
+  width: 100%;
+
+  &:hover {
+    background-color: var(--red);
+  }
+
+  &:disabled {
+    cursor: auto;
+    background-color: var(--text-gray-700);
+  }
+}
+
+.terms {
+  margin-right: 10px;
+}
