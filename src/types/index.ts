@@ -33,3 +33,15 @@ export interface CardFormData {
   country: string;
   picture: FileList;
 }
+
+export interface DataForRender {
+  date: string;
+  terms: true;
+  name: string;
+  email: string;
+  age: number;
+  password: string;
+  gender: string;
+  country: string;
+  picture: string;
+}

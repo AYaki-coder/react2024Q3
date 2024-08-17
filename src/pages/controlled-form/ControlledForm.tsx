@@ -1,11 +1,13 @@
 import { Header } from '../../components/header/Header';
-import { CardFormData, Endpoints, Links } from '../../types';
+import { CardFormData, DataForRender, Endpoints, Links } from '../../types';
 import s from '../../components/form/Form.module.css';
 import { COUNTRY_LIST } from '../../utils/country-list';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../utils/validator-scheme';
 import { convertTo64Base } from '../../utils/convert';
+import { useAppDispatch } from '../../store/storeHooks';
+import { addData } from '../../store/dataSlice';
 
 export const ControlledForm: React.FC = () => {
   const {
@@ -15,10 +17,23 @@ export const ControlledForm: React.FC = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: 'onBlur', defaultValues: {} });
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = async (data: CardFormData) => {
     const file = data.picture[0];
     const base64 = await convertTo64Base(file);
-    console.log(base64);
+    const newData: DataForRender = {
+      date: new Date().toISOString(),
+      name: data.name,
+      email: data.email,
+      age: data.age,
+      password: data.password,
+      gender: data.gender,
+      country: data.country,
+      picture: base64,
+      terms: true,
+    };
+    dispatch(addData(newData));
   };
 
   return (

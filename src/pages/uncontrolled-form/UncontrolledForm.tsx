@@ -1,13 +1,16 @@
 import { Header } from '../../components/header/Header';
-import { Endpoints, FormErrors, Links } from '../../types';
+import { DataForRender, Endpoints, FormErrors, Links } from '../../types';
 import { COUNTRY_LIST } from '../../utils/country-list';
 import s from '../../components/form/Form.module.css';
 import { schema } from '../../utils/validator-scheme';
 import * as yup from 'yup';
 import { useState } from 'react';
 import { convertTo64Base } from '../../utils/convert';
+import { addData } from '../../store/dataSlice';
+import { useAppDispatch } from '../../store/storeHooks';
 
 export const UncontrolledForm: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [errors, setErrors] = useState<Partial<FormErrors>>({});
   const onSubmit = (event: React.SyntheticEvent) => {
     event.preventDefault();
@@ -40,7 +43,18 @@ export const UncontrolledForm: React.FC = () => {
       .then(async (formData) => {
         const file = formData.picture[0];
         const base64 = await convertTo64Base(file);
-        console.log(base64);
+        const newData: DataForRender = {
+          date: new Date().toISOString(),
+          name: formData.name,
+          email: formData.email,
+          age: formData.age,
+          password: formData.password,
+          gender: formData.gender,
+          country: formData.country,
+          picture: base64,
+          terms: true,
+        };
+        dispatch(addData(newData));
       })
       .catch((validationErrors: yup.ValidationError) => {
         const errors: Partial<FormErrors> = validationErrors.inner.reduce(

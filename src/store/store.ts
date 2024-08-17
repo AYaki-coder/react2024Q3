@@ -1,17 +1,13 @@
-// import { configureStore } from '@reduxjs/toolkit';
-// import { selectedPersonsReducer } from './personSelectedSlice';
-// import { currentPagesReducer } from './currentPageSlice';
-// import { detailedPersonReducer } from './detailedPersonSlice';
+import { configureStore } from '@reduxjs/toolkit';
+import { dataSliceReducer } from './dataSlice';
 
-// const store = configureStore({
-//   reducer: {
-//     selectedPersons: selectedPersonsReducer,
-//     currentPage: currentPagesReducer,
-//     detailedPerson: detailedPersonReducer,
-//   },
-// });
+const store = configureStore({
+  reducer: {
+    data: dataSliceReducer,
+  },
+});
 
-// export type RootState = ReturnType<typeof store.getState>;
-// export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;
 
-// export default store;
+export default store;
