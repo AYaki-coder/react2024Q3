@@ -9,3 +9,14 @@ export const enum Links {
   ControlledForm = 'Controlled Form',
   UncontrolledForm = 'Uncontrolled Form',
 }
+
+export interface FormErrors {
+  name: string;
+  age: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  gender: string;
+  country: string;
+  terms: string;
+}

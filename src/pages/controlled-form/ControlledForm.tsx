@@ -3,39 +3,10 @@ import { Endpoints, Links } from '../../types';
 import s from '../../components/form/Form.module.css';
 import { COUNTRY_LIST } from '../../utils/country-list';
 import { useForm } from 'react-hook-form';
-import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { schema } from '../../utils/validator-scheme';
 
 export const ControlledForm: React.FC = () => {
-  const schema = yup.object().shape({
-    name: yup
-      .string()
-      .required('Enter your name.')
-      .matches(/^[A-Z][a-z0-9_-]{2,19}$/, 'First letter should be capitalized.'),
-    email: yup.string().required('Enter your e-mail.').email('The input should be an e-mail address.'),
-    age: yup
-      .number()
-      .typeError('Enter your age.')
-      .required('Enter your age.')
-      .positive('The age should be positive.')
-      .integer('The age should be an integer'),
-    password: yup
-      .string()
-      .required('Enter your password')
-      .matches(/([0-9])/, 'Must contain at least 1 number ')
-      .matches(/([\p{Lu}])/u, 'Must contain at least 1 uppercase letter ')
-      .matches(/([\p{Ll}])/u, 'Must contain at least 1 lowercase letter ')
-      .matches(/([^\p{L}0-9])/u, 'Must contain one special character ')
-      .required('Set password'),
-    confirmPassword: yup
-      .string()
-      .oneOf([yup.ref('password'), undefined], 'Passwords do not match.')
-      .required('Confirm your password'),
-    gender: yup.string().required('Choose the gender'),
-    country: yup.string().required('Choose your country').oneOf(COUNTRY_LIST, 'Choose the country from the list'),
-    terms: yup.boolean().isTrue('You did not accepted Terms and Conditions'),
-  });
-
   const {
     register,
     handleSubmit,
