@@ -5,6 +5,7 @@ import s from '../../components/form/Form.module.css';
 import { schema } from '../../utils/validator-scheme';
 import * as yup from 'yup';
 import { useState } from 'react';
+import { convertTo64Base } from '../../utils/convert';
 
 export const UncontrolledForm: React.FC = () => {
   const [errors, setErrors] = useState<Partial<FormErrors>>({});
@@ -19,6 +20,7 @@ export const UncontrolledForm: React.FC = () => {
       gender: { value: string };
       country: { value: string };
       terms: { checked: boolean };
+      picture: { files: FileList };
     };
 
     const formData = {
@@ -30,12 +32,15 @@ export const UncontrolledForm: React.FC = () => {
       gender: target.gender.value,
       country: target.country.value,
       terms: target.terms.checked,
+      picture: target.picture.files,
     };
 
     schema
       .validate(formData, { abortEarly: false, context: { COUNTRY_LIST } })
-      .then((formData) => {
-        console.log('valid', formData);
+      .then(async (formData) => {
+        const file = formData.picture[0];
+        const base64 = await convertTo64Base(file);
+        console.log(base64);
       })
       .catch((validationErrors: yup.ValidationError) => {
         const errors: Partial<FormErrors> = validationErrors.inner.reduce(
@@ -155,6 +160,15 @@ export const UncontrolledForm: React.FC = () => {
                 placeholder="Select your country"
               />
               <p className={s.errorMessage}>{errors?.country}</p>
+            </div>
+          </div>
+          <div className={s.formRow}>
+            <label htmlFor="picture" className={s.formLabel}>
+              Picture:
+            </label>
+            <div className={s.formInputContainer}>
+              <input className={s.formInput} id="picture" type="file" placeholder="Upload a picture" name="picture" />
+              <p className={s.errorMessage}>{errors?.picture}</p>
             </div>
           </div>
           <br />

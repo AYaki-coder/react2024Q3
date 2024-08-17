@@ -1,10 +1,11 @@
 import { Header } from '../../components/header/Header';
-import { Endpoints, Links } from '../../types';
+import { CardFormData, Endpoints, Links } from '../../types';
 import s from '../../components/form/Form.module.css';
 import { COUNTRY_LIST } from '../../utils/country-list';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { schema } from '../../utils/validator-scheme';
+import { convertTo64Base } from '../../utils/convert';
 
 export const ControlledForm: React.FC = () => {
   const {
@@ -14,9 +15,12 @@ export const ControlledForm: React.FC = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema), mode: 'onBlur', defaultValues: {} });
 
-  const onSubmit = (data: unknown) => {
-    console.log('submit', data);
+  const onSubmit = async (data: CardFormData) => {
+    const file = data.picture[0];
+    const base64 = await convertTo64Base(file);
+    console.log(base64);
   };
+
   return (
     <div>
       <Header p1={Endpoints.Main} p2={Endpoints.UncontrolledForm} link1={Links.Main} link2={Links.UncontrolledForm} />
@@ -138,6 +142,21 @@ export const ControlledForm: React.FC = () => {
                 {...register('country')}
               />
               <p className={s.errorMessage}>{errors?.country?.message}</p>
+            </div>
+          </div>
+          <div className={s.formRow}>
+            <label htmlFor="picture" className={s.formLabel}>
+              Picture:
+            </label>
+            <div className={s.formInputContainer}>
+              <input
+                className={s.formInput}
+                id="picture"
+                type="file"
+                placeholder="Upload a picture"
+                {...register('picture')}
+              />
+              <p className={s.errorMessage}>{errors?.picture?.message}</p>
             </div>
           </div>
           <br />

@@ -35,5 +35,26 @@ export const schema = yup.object().shape({
       COUNTRY_LIST.map((x) => x.toLowerCase()),
       'Choose the country from the list',
     ),
+  picture: yup
+    .mixed<FileList>()
+    .required('Upload your picture.')
+    .test('fileSize', (files: FileList, { path, createError }) => {
+      if (!files?.[0]) {
+        return createError({
+          message: 'Upload the file',
+          path,
+        });
+      } else if (files[0].size >= 1024 * 1024 * 1024 * 1024) {
+        return createError({
+          message: 'file is too large',
+          path,
+        });
+      }
+      return true;
+    })
+    .test('fileTypeJpeg', 'Only JPEG/PNG are supported', (files: FileList) => {
+      const type = files?.[0]?.type;
+      return type === 'image/jpeg' || type === 'image/png';
+    }),
   terms: yup.boolean().isTrue('You did not accepted Terms and Conditions'),
 });

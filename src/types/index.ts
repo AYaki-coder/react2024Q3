@@ -19,4 +19,17 @@ export interface FormErrors {
   gender: string;
   country: string;
   terms: string;
+  picture: string;
+}
+
+export interface CardFormData {
+  terms?: true | undefined;
+  name: string;
+  email: string;
+  age: number;
+  password: string;
+  confirmPassword: string;
+  gender: string;
+  country: string;
+  picture: FileList;
 }
