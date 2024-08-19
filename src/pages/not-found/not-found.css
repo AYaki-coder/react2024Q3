@@ -1,0 +1,28 @@
+.not-found-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background: url(/src/assets/not-found.jpg);
+  background-size: cover;
+}
+
+.not-found-plate {
+  display: flex;
+  padding: 3rem;
+  border-radius: 8px;
+  background-color: #000000cc;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.not-found-title {
+  color: #c82f2f;
+}
+.not-found-message {
+  font-size: 1rem;
+  color: aliceblue;
+  text-transform: uppercase;
+}
